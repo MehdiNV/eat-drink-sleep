@@ -1,0 +1,7 @@
+{
+  "name": "eat-drink-sleep",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
