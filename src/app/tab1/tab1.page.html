@@ -1,17 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Introduction
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="paddingContent" [fullscreen]="true">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-slides class="paddingContent">
+
+      <ion-slide> <!--  First Slide -->
+        <img class="minimiseSize" src="../../assets/images/trip.png"/>
+        <h2>Tired of planning an adventure?</h2>
+        <p>It's difficult and cumbersome. You have to spend hours researching, plan out your routes, jesus, it's a lot of work</p>
+      </ion-slide>
+
+      <ion-slide> <!-- Second Slide -->
+        <img class="minimiseSize" src="../../assets/images/travelling.png"/>
+        <h2>We design the Routes</h2>
+        <p>Tell us your interests, what you want to see in the city, pick where you want to see and eat. And that's it - we'll design the perfect itinerary for you</p>
+      </ion-slide> <!-- End of Second Slide -->
+
+      <ion-slide> <!-- Third Slide -->
+        <img class="minimiseSize" src="../../assets/images/lightMap.png"/>
+        <h2>This is all that you'd have to see</h2>
+        <p>No more being lost, needing to research how far X is to Z - we'd just show you a map based on your choices, and that's your adventure right then and there</p>
+      </ion-slide> <!-- End of Third Slide -->
+
+      <ion-slide> <!-- Third Slide -->
+        <img class="minimiseSize" src="../../assets/images/escape.png"/>
+        <h2>Ready to start?</h2>
+        <ion-button fill="clear" routerLink="/tabs/tab2">Lets get started<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      </ion-slide> <!-- End of Third Slide -->
+
+   </ion-slides>
+
 </ion-content>

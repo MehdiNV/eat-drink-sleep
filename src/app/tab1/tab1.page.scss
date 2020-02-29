@@ -1,3 +1,22 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.swiper-slide {
+      display: block;
+}
+
+ion-slide > h2 {
+  margin-top: 2.1rem;
+}
+
+ion-slide > img {
+  max-height: 85%;
+  max-width: 80%;
+  margin: 36px 0;
+}
+
+.paddingContent{
+  padding-left: 0.8%;
+  padding-right: 0.8%;
+}
