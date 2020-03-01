@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from 
   '@angular/core';
-  
+import { SelectedLocationsService } from '../services/selected-locations.service';
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -61,9 +62,21 @@ export class Tab3Page implements AfterViewInit {
     //                  ChIJ1-v38TauEmsR41TkSleEZ-U,
     //                 ChIJ1-v38TauEmsRdY2AQcWLZ98],
     //directionsService, directionsRenderer);
+    var locations: any[] = [];
+    var i = 0;
+    
+    
+    // console.log(this.selectedLocationsService.selectedLocations);
+    this.selectedLocationsService.selectedLocations.forEach(location => {
+      locations[i] = {
+        'lat': location.lat,
+        'lng': location.long
+      }
+       i++;
+    })
 
-    this.displayRoute([{lat: -34, lng: 151}, {lat: -30, lng: 150}, {lat: -32, lng: 140}, {lat: -30, lng:140}]
-        , directionsService, directionsRenderer);
+    this.displayRoute(
+      locations , directionsService, directionsRenderer);
   }
 
   displayRoute(destinations, service, display){
@@ -71,6 +84,7 @@ export class Tab3Page implements AfterViewInit {
     for (var i = 1; i < destinations.length-1; i++) {
       destinations[i] = {location: destinations[i]};
     }
+    console.log(destinations);
     service.route({
       origin: destinations[0],
       destination: destinations[destinations.length-1],
@@ -86,7 +100,7 @@ export class Tab3Page implements AfterViewInit {
     });
   }
 
-  constructor() {
+  constructor(public selectedLocationsService: SelectedLocationsService) {
     // this.initMap();
   }
 

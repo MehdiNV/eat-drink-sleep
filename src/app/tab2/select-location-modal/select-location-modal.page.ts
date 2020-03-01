@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController  } from '@ionic/angular';
-
+import { SelectedLocationsService } from '../../services/selected-locations.service';
 @Component({
   selector: 'app-select-location-modal',
   templateUrl: './select-location-modal.page.html',
@@ -12,7 +12,8 @@ export class SelectLocationModalPage implements OnInit {
   currentPos;
   final_results;
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController,
+    public selectedLocationsService: SelectedLocationsService) { }
   
   ngOnInit() {
     this.mapInitializer();
