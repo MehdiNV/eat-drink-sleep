@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController  } from '@ionic/angular';
 import { SelectedLocationsService } from '../../services/selected-locations.service';
+import { LocationInfoCardComponent } from '../location-info-card/location-info-card.component';
+import { SelectedLocation } from 'src/app/models/selectedLocationModel';
+
 @Component({
   selector: 'app-select-location-modal',
   templateUrl: './select-location-modal.page.html',
@@ -10,7 +13,7 @@ export class SelectLocationModalPage implements OnInit {
 
   category: string;
   currentPos;
-  final_results;
+  final_results: SelectedLocation[] = [];
 
   constructor(public modalController: ModalController,
     public selectedLocationsService: SelectedLocationsService) { }
@@ -33,7 +36,7 @@ export class SelectLocationModalPage implements OnInit {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            console.log(currentPos.lat);
+            // console.log(currentPos.lat);
             map.setCenter(currentPos);
             resolve(currentPos);
           }, function() {
@@ -48,27 +51,27 @@ export class SelectLocationModalPage implements OnInit {
     }
   }
 
+ 
   getPlaces(latLong, radius, category, map) {
       	// Create the places service.
  
       var service = new google.maps.places.PlacesService(map);
 
       var filterTags = []
-      switch(category){
-          case "eat":
-              filterTags = ["cafe", "restaurant"];
-              break;
-          case "drink":
-              filterTags = ["bar", "nightclub"];
-              break;
-          case "see":
-              filterTags = ["museum", "point_of_interest"];
-              break;
-      }
-​
+     
+    ​ switch(category){
+      case "eat":
+          filterTags = ["cafe", "restaurant"];
+          break;
+      case "drink":
+          filterTags = ["bar", "nightclub"];
+          break;
+      case "see":
+          filterTags = ["museum", "point_of_interest"];
+          break;
+    }
 
       // Perform a nearby search.
-      this.final_results = [];
       var promRes = new Promise((resolve, reject) => {
         service.nearbySearch(
           {location: latLong, radius: radius}, function(results, status, pagination){
@@ -90,13 +93,52 @@ export class SelectLocationModalPage implements OnInit {
       });
 
       return promRes.then(finalResults => {
-        console.log(finalResults);
-        this.final_results = finalResults;
+        var results: any = finalResults;
+
+        results.forEach(element => {
+          // console.log(element);
+          this.final_results.push(this.getLocationFromResult(element));
+        });
+    
       });
   }
 
+  getLocationFromResult(gMapsLocation): SelectedLocation{
+    var eatDrinkSeeCategory = this.getEatDrinkSeeType(gMapsLocation);
+    var location: SelectedLocation = {
+      name: gMapsLocation.name,
+      image: gMapsLocation.icon,
+      eatDrinkSeeCategory: eatDrinkSeeCategory,
+      priceRange: '£-££',
+      tag: null,
+      distanceFromUser: null,
+      lat: gMapsLocation.geometry.location.lat,
+      long: gMapsLocation.geometry.location.long,
+    };
+    return location;
+  }
 
+  getEatDrinkSeeType(gMapsLocation){
+    if(this.isSeeType(gMapsLocation)){
+      return 'see';
+    }else if(this.isDrinkType(gMapsLocation)){
+      return 'drink'
+    }else if(this.isEatType(gMapsLocation)){
+      return 'eat';
+    }
+  }
 
+  isSeeType(mapLocation): boolean{
+    return(mapLocation.types.includes("museum", "point_of_interest"));
+  }
+
+  isEatType(mapLocation): boolean{
+    return(mapLocation.types.includes("food", "cafe", "restaurant"));
+  }
+  isDrinkType(mapLocation): boolean{
+    return(mapLocation.types.includes("bar", "nightclub"));
+  }
+  
   closeModal(){
     this.modalController.dismiss();
   }

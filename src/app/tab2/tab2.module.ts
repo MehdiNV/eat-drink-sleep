@@ -7,7 +7,7 @@ import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { WalkingDistanceComponent } from './walking-distance/walking-distance.component';
 import { EatDrinkSeeToolbarComponent } from './eat-drink-see-toolbar/eat-drink-see-toolbar.component';
-import { SelectedLocationComponent } from './selected-location/selected-location.component';
+import { LocationInfoCardComponent } from './location-info-card/location-info-card.component';
 // import { SelectLocationModalPage } from './select-location-modal/select-location-modal.page';
 
 @NgModule({
@@ -27,7 +27,7 @@ import { SelectedLocationComponent } from './selected-location/selected-location
     // SelectLocationModalPage,
     WalkingDistanceComponent, 
     EatDrinkSeeToolbarComponent,
-    SelectedLocationComponent
+    LocationInfoCardComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -84,7 +84,7 @@ export class Tab3Page implements AfterViewInit {
     for (var i = 1; i < destinations.length-1; i++) {
       destinations[i] = {location: destinations[i]};
     }
-    console.log(destinations);
+    // console.log(destinations);
     service.route({
       origin: destinations[0],
       destination: destinations[destinations.length-1],

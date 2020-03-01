@@ -26,7 +26,7 @@ export class GetLocationsService {
 
           if (status !== 'OK' || filterTags.length == 0) {
             //createMarkers(results);
-            console.log(results);
+            // console.log(results);
             return results;
           }
           
@@ -48,8 +48,8 @@ export class GetLocationsService {
               finalResults.push(results[i]);
             }
           }
-          console.log("FINAL");
-          console.log(finalResults);
+          // console.log("FINAL");
+          // console.log(finalResults);
 
           //createMarkers(finalResults);
           var check = !pagination.hasNextPage;

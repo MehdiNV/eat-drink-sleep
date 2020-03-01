@@ -11,7 +11,7 @@
     <ion-card-header>
       Selected Locations
     </ion-card-header>
-    <app-selected-location *ngFor="let selectedLocation of selectedLocationsService.selectedLocations" [selectedLocation]="selectedLocation"></app-selected-location>
+    <app-location-info-card *ngFor="let selectedLocation of selectedLocationsService.selectedLocations" [location]="selectedLocation"></app-location-info-card>
   </ion-card>
  
   <ion-grid>
