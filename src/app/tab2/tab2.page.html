@@ -1,3 +1,5 @@
+<div #mapContainer id="map"></div>
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <app-walking-distance></app-walking-distance>
@@ -11,6 +13,14 @@
     <ion-card-header>
       Selected Locations
     </ion-card-header>
-    <app-selected-location></app-selected-location>
+    <app-selected-location *ngFor="let selectedLocation of selectedLocationsService.selectedLocations" [selectedLocation]="selectedLocation"></app-selected-location>
   </ion-card>
+ 
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button >submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

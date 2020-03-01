@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { WalkingDistanceComponent } from './walking-distance/walking-distance.component';
+import { SelectedLocationsService } from '../services/selected-locations.service';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -7,6 +9,8 @@ import { WalkingDistanceComponent } from './walking-distance/walking-distance.co
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(public selectedLocationsService: SelectedLocationsService) {
+
+  }
 
 }

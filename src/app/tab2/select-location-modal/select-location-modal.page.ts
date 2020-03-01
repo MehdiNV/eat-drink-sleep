@@ -11,7 +11,7 @@ export class SelectLocationModalPage implements OnInit {
   category: string;
 
   constructor(public modalController: ModalController) { }
-
+  
   ngOnInit() {
     
   }

@@ -1,6 +1,6 @@
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
@@ -19,6 +19,9 @@ import { SelectedLocationComponent } from './selected-location/selected-location
   
     RouterModule.forChild([{ path: '', component: Tab2Page }])
   ],
+  exports: [
+
+  ],
   declarations: [
     Tab2Page, 
     // SelectLocationModalPage,
@@ -26,6 +29,6 @@ import { SelectedLocationComponent } from './selected-location/selected-location
     EatDrinkSeeToolbarComponent,
     SelectedLocationComponent
   ],
-
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class Tab2PageModule {}
