@@ -18,12 +18,12 @@ export class SelectedLocationsService {
     var selectedLocationTwo: SelectedLocation = {
       name: 'Location Two Name',
       priceRange: '££ - £££',
-      distanceFromUser: 300,
+      distanceFromUser: '300',
       image: null,
       eatDrinkSeeCategory: 'drink',
       tag: 'bar'
     }
-    
+
     this.selectedLocations.push(selectedLocationOne);
     this.selectedLocations.push(selectedLocationTwo);
    }
