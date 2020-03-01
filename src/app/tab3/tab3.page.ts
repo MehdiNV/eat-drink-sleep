@@ -30,13 +30,61 @@ export class Tab3Page implements AfterViewInit {
   }
 
   mapInitializer() {
-    this.map =  new google.maps.Map(document.getElementById('map'), {
+    var map =  new google.maps.Map(document.getElementById('map'), {
       center: {lat: this.lat, lng: this.lng},
       zoom: 6
     });
 
-    this.marker.setMap(this.map);
-   }
+    var directionsService = new google.maps.DirectionsService;
+    var directionsRenderer = new google.maps.DirectionsRenderer({
+      draggable: false,
+      map: map
+    });
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        map.setCenter(pos);
+      }, function() {
+        //there was an error
+      });
+    }
+
+    //this.marker.setMap(this.map);
+    //DC, New York, Chicago, Boston
+    //this.displayRoute([ChIJF7vWPDGuEmsRVzDtwB6rZAw,
+    //                  ChIJz2EHuEmuEmsRN_yScfn88Ec,
+    //                  ChIJ1-v38TauEmsR41TkSleEZ-U,
+    //                 ChIJ1-v38TauEmsRdY2AQcWLZ98],
+    //directionsService, directionsRenderer);
+
+    this.displayRoute([{lat: -34, lng: 151}, {lat: -30, lng: 150}, {lat: -32, lng: 140}, {lat: -30, lng:140}]
+        , directionsService, directionsRenderer);
+  }
+
+  displayRoute(destinations, service, display){
+
+    for (var i = 1; i < destinations.length-1; i++) {
+      destinations[i] = {location: destinations[i]};
+    }
+    service.route({
+      origin: destinations[0],
+      destination: destinations[destinations.length-1],
+      waypoints: destinations.slice(1,-1),
+      travelMode: 'WALKING',
+      avoidTolls: true
+    }, function(response, status) {
+      if (status === 'OK') {
+        display.setDirections(response);
+      } else {
+        alert('Could not display directions due to: ' + status);
+      }
+    });
+  }
 
   constructor() {
     // this.initMap();
