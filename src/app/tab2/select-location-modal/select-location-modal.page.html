@@ -35,11 +35,20 @@
         <ion-col size="2">
           <ion-button *ngIf="!isInList(location)" (click)="addToSelectedLocations(location);" ><ion-icon name="add"></ion-icon></ion-button>
           <ion-button *ngIf="isInList(location) == true" (click)="removeFromSelectedLocations(location);" color="danger"><ion-icon name="remove"></ion-icon></ion-button>
-   
         </ion-col>
+      </ion-row>
+      <ion-row>
+  
+        
       </ion-row>
     </ion-grid>
   
   </ion-item>
-
+  <ion-grid >
+    <ion-col style=" text-align:center;">
+      <ion-button (click)="closeModal();">
+          <ion-icon slot="start" name="arrow-back"></ion-icon>Return
+      </ion-button>
+    </ion-col>  
+  </ion-grid>
 </ion-content>

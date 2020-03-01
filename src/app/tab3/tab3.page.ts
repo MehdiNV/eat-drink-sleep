@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from 
   '@angular/core';
 import { SelectedLocationsService } from '../services/selected-locations.service';
-
+import {  Router   } from '@angular/router'
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -11,73 +11,71 @@ export class Tab3Page implements AfterViewInit {
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
-  // lat = 55.954115;
-  // lng = -3.188332;
-
-  // coordinates = new google.maps.LatLng(this.lat, this.lng);
-
-  // mapOptions: google.maps.MapOptions = {
-  //   center: this.coordinates,
-  //   zoom: 8,
-  // };
-
-  // marker = new google.maps.Marker({
-  //   position: this.coordinates,
-  //   map: this.map,
-  // });
+  currentLat;
+  currentLong;
+  marker;
 
   ngAfterViewInit(): void {
     this.mapInitializer();
   }
 
   mapInitializer() {
-    var map =  new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 0, lng: 0},
+    this.map =  new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 55.942719, lng: -3.188020},
       zoom: 6
     });
 
     var directionsService = new google.maps.DirectionsService;
     var directionsRenderer = new google.maps.DirectionsRenderer({
       draggable: false,
-      map: map
+      map: this.map
     });
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
+     new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        map.setCenter(pos);
+        resolve(pos);
       }, function() {
         //there was an error
       });
+     }).then(returnedPos => {
+       var pos: any = returnedPos;
+
+       this.currentLat = pos.lat;
+       this.currentLong = pos.lng;
+       this.map.setCenter(pos);
+
+      var locations: any[] = [];
+      var i = 0;
+        
+      this.selectedLocationsService.selectedLocations.forEach(location => {
+        locations[i] = {
+          'lat': location.lat,
+          'lng': location.lng
+        }
+        i++;
+      })  
+
+
+    
+      this.displayRoute(
+        locations , directionsService, directionsRenderer);
+      })
     }
+  }
 
-    //this.marker.setMap(this.map);
-    //DC, New York, Chicago, Boston
-    //this.displayRoute([ChIJF7vWPDGuEmsRVzDtwB6rZAw,
-    //                  ChIJz2EHuEmuEmsRN_yScfn88Ec,
-    //                  ChIJ1-v38TauEmsR41TkSleEZ-U,
-    //                 ChIJ1-v38TauEmsRdY2AQcWLZ98],
-    //directionsService, directionsRenderer);
-    var locations: any[] = [];
-    var i = 0;
-      
-    // console.log(this.selectedLocationsService.selectedLocations);
-    this.selectedLocationsService.selectedLocations.forEach(location => {
-      locations[i] = {
-        'lat': location.lat,
-        'lng': location.lng
-      }
-       i++;
-    })  
+  refresh(){
+    // window.location.reload();
+    this.router.navigate(['/tabs/tab2']);
+  }
 
-    // console.log(locations);
-
-    this.displayRoute(
-      locations , directionsService, directionsRenderer);
+  setMapType(mapTypeId: string) {
+    this.map.setMapTypeId(mapTypeId)    
   }
 
   displayRoute(destinations, service, display){
@@ -101,7 +99,7 @@ export class Tab3Page implements AfterViewInit {
     });
   }
 
-  constructor(public selectedLocationsService: SelectedLocationsService) {
+  constructor(public selectedLocationsService: SelectedLocationsService, public router: Router) {
     
     // this.initMap();
   }
