@@ -5,4 +5,6 @@ export class SelectedLocation{
     image: string;
     eatDrinkSeeCategory: string;
     tag: string;
+    lat: number;
+    long: number;
 }
