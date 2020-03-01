@@ -19,6 +19,29 @@ export class SelectLocationModalPage implements OnInit {
     public selectedLocationsService: SelectedLocationsService) { }
   
   ngOnInit() {
+    // console.log(this.category);
+    var selectedLocationOne: SelectedLocation = {
+      name: 'Edinburgh Castle',
+      priceRange: '£ - ££',
+      distanceFromUser: '100',
+      image: null,
+      eatDrinkSeeCategory: 'eat',
+      tag: 'restaurant',
+      lat: 55.948625,
+      lng: -3.199806,
+      googleMapsLocationId: '1'
+    }
+    var selectedLocationTwo: SelectedLocation = {
+      name: 'Edinburgh University',
+      priceRange: '££ - £££',
+      distanceFromUser: '300',
+      image: null,
+      eatDrinkSeeCategory: 'drink',
+      tag: 'bar',
+      lat: 55.944534,
+      lng: -3.189477,
+      googleMapsLocationId: '2'
+    } 
     this.mapInitializer();
   }
 
@@ -44,7 +67,9 @@ export class SelectLocationModalPage implements OnInit {
           });
     });
      returnedPromise.then(currentPos => {
-      this.getPlaces(currentPos, 100, "see", map);
+       console.log(currentPos);
+      //  console.log(this.getPlaces(currentPos, 500, this.category, map));
+        this.getPlaces(currentPos, 500, this.category, map);
       
      })
 
@@ -75,13 +100,14 @@ export class SelectLocationModalPage implements OnInit {
       var promRes = new Promise((resolve, reject) => {
         service.nearbySearch(
           {location: latLong, radius: radius}, function(results, status, pagination){
-
+            console.log(results);
             // Get all the locations matching the filter tags and put them in finalResults
             var finalResults = [];
 
             for (var i = 0; i < results.length; i++) {
               for (var j = 0; j < filterTags.length; j++) {
                 if (results[i].types.includes(filterTags[j])) {
+                  console.log(results[i]);
                   finalResults.push(results[i]);
                   break;
                 }
@@ -104,6 +130,8 @@ export class SelectLocationModalPage implements OnInit {
   }
 
   getLocationFromResult(gMapsLocation): SelectedLocation{
+    // console.log(gMapsLocation.geometry.location.lat());
+    // console.log(gMapsLocation.geometry.location.lng());
     var eatDrinkSeeCategory = this.getEatDrinkSeeType(gMapsLocation);
     var location: SelectedLocation = {
       name: gMapsLocation.name,
@@ -111,11 +139,21 @@ export class SelectLocationModalPage implements OnInit {
       eatDrinkSeeCategory: eatDrinkSeeCategory,
       priceRange: '£-££',
       tag: null,
-      distanceFromUser: null,
-      lat: gMapsLocation.geometry.location.lat,
-      long: gMapsLocation.geometry.location.long,
+      distanceFromUser: '1000',
+      googleMapsLocationId: gMapsLocation.id,
+      lat: gMapsLocation.geometry.location.lat(),
+      lng: gMapsLocation.geometry.location.lng(),
     };
     return location;
+  }
+
+  isInList(googleMapsLocationId: string){
+    // console.log(googleMapsLocationId);
+    this.selectedLocationsService.selectedLocations.forEach(loc => {
+      if (loc.googleMapsLocationId == googleMapsLocationId){
+        return true;
+      }
+    });
   }
 
   getEatDrinkSeeType(gMapsLocation){
@@ -139,6 +177,14 @@ export class SelectLocationModalPage implements OnInit {
     return(mapLocation.types.includes("bar", "nightclub"));
   }
   
+  removeFromSelectedLocations(location: SelectedLocation){
+    var index = this.selectedLocationsService.selectedLocations.indexOf(location);
+    this.selectedLocationsService.selectedLocations.splice(index, 1);
+  }
+  addToSelectedLocations(location: SelectedLocation){
+    // console.log(location);
+    this.selectedLocationsService.selectedLocations.push(location);
+  }
   closeModal(){
     this.modalController.dismiss();
   }

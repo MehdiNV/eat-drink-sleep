@@ -64,23 +64,24 @@ export class Tab3Page implements AfterViewInit {
     //directionsService, directionsRenderer);
     var locations: any[] = [];
     var i = 0;
-    
-    
+      
     // console.log(this.selectedLocationsService.selectedLocations);
     this.selectedLocationsService.selectedLocations.forEach(location => {
       locations[i] = {
         'lat': location.lat,
-        'lng': location.long
+        'lng': location.lng
       }
        i++;
-    })
+    })  
+
+    // console.log(locations);
 
     this.displayRoute(
       locations , directionsService, directionsRenderer);
   }
 
   displayRoute(destinations, service, display){
-
+    // console.log(destinations);
     for (var i = 1; i < destinations.length-1; i++) {
       destinations[i] = {location: destinations[i]};
     }
@@ -101,6 +102,7 @@ export class Tab3Page implements AfterViewInit {
   }
 
   constructor(public selectedLocationsService: SelectedLocationsService) {
+    
     // this.initMap();
   }
 

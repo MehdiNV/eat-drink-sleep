@@ -10,10 +10,10 @@ export class LocationInfoCardComponent implements OnInit {
   
   @Input()location: SelectedLocation;
 
-  constructor() { console.log(location)}
+  constructor() { }
 
   ngOnInit() {
-    console.log(this.location);
+    // console.log(this.location);
   }
 
 }

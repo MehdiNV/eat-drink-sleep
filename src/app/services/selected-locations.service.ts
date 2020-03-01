@@ -7,29 +7,6 @@ export class SelectedLocationsService {
   selectedLocations: SelectedLocation[] = [];
   constructor() {
     // THIS IS FAKE DATA
-    var selectedLocationOne: SelectedLocation = {
-      name: 'Edinburgh Castle',
-      priceRange: '£ - ££',
-      distanceFromUser: '100',
-      image: null,
-      eatDrinkSeeCategory: 'eat',
-      tag: 'restaurant',
-      lat: 55.948625,
-      long: -3.199806
-    }
-    var selectedLocationTwo: SelectedLocation = {
-      name: 'Edinburgh University',
-      priceRange: '££ - £££',
-      distanceFromUser: '300',
-      image: null,
-      eatDrinkSeeCategory: 'drink',
-      tag: 'bar',
-      lat: 55.944534,
-      long: -3.189477
-    }
 
-    this.selectedLocations.push(selectedLocationOne);
-    this.selectedLocations.push(selectedLocationTwo);
-    // this.selectedLocations.push(selectedLocationThree);
    }
 }

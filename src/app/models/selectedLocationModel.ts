@@ -6,5 +6,6 @@ export class SelectedLocation{
     eatDrinkSeeCategory: string;
     tag: string;
     lat: number;
-    long: number;
+    lng: number;
+    googleMapsLocationId: string;
 }
