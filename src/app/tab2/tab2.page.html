@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <app-walking-distance></app-walking-distance>
-    <ion-icon (click)="resetLocations()" slot="end" name="refresh"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -9,9 +8,16 @@
   <app-eat-drink-see-toolbar ></app-eat-drink-see-toolbar>
 
   <ion-card>
-    <ion-card-header>
-      Selected Locations
-    </ion-card-header>
+    <ion-item>
+      <ion-label style="color: gray">
+        Selected Locations
+      </ion-label>
+      <ion-button  slot="end"size="small"   (click)="resetLocations()">
+        reset locations
+      </ion-button>
+       
+    </ion-item>
+    
     <app-location-info-card *ngFor="let selectedLocation of selectedLocationsService.selectedLocations" [location]="selectedLocation"></app-location-info-card>
   </ion-card>
  

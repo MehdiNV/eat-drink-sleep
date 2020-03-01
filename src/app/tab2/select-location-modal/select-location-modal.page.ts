@@ -3,7 +3,7 @@ import { ModalController  } from '@ionic/angular';
 import { SelectedLocationsService } from '../../services/selected-locations.service';
 import { LocationInfoCardComponent } from '../location-info-card/location-info-card.component';
 import { SelectedLocation } from 'src/app/models/selectedLocationModel';
-
+import { WalkingPositionService } from '../../services/walking-position.service';
 @Component({
   selector: 'app-select-location-modal',
   templateUrl: './select-location-modal.page.html',
@@ -15,7 +15,8 @@ export class SelectLocationModalPage implements OnInit {
   final_results: SelectedLocation[] = [];
 
   constructor(public modalController: ModalController,
-    public selectedLocationsService: SelectedLocationsService) { }
+    public selectedLocationsService: SelectedLocationsService,
+    public walkingDistanceService: WalkingPositionService) { }
   
   ngOnInit() {
     this.final_results = [];
@@ -67,10 +68,8 @@ export class SelectLocationModalPage implements OnInit {
           });
     });
      returnedPromise.then(currentPos => {
-       console.log(currentPos);
       //  console.log(this.getPlaces(currentPos, 500, this.category, map));
-        this.getPlaces(currentPos, 500, this.category, map);
-      
+        this.getPlaces(currentPos, this.walkingDistanceService.walkingPositionRange, this.category, map);  
      })
 
     }
@@ -100,14 +99,12 @@ export class SelectLocationModalPage implements OnInit {
       var promRes = new Promise((resolve, reject) => {
         service.nearbySearch(
           {location: latLong, radius: radius}, function(results, status, pagination){
-            console.log(results);
             // Get all the locations matching the filter tags and put them in finalResults
             var finalResults = [];
 
             for (var i = 0; i < results.length; i++) {
               for (var j = 0; j < filterTags.length; j++) {
                 if (results[i].types.includes(filterTags[j])) {
-                  console.log(results[i]);
                   finalResults.push(results[i]);
                   break;
                 }
@@ -122,7 +119,6 @@ export class SelectLocationModalPage implements OnInit {
         var results: any = finalResults;
 
         results.forEach(element => {
-          // console.log(element);
           this.final_results.push(this.getLocationFromResult(element));
         });
     
@@ -130,8 +126,7 @@ export class SelectLocationModalPage implements OnInit {
   }
 
   getLocationFromResult(gMapsLocation): SelectedLocation{
-    // console.log(gMapsLocation.geometry.location.lat());
-    // console.log(gMapsLocation.geometry.location.lng());
+
     var eatDrinkSeeCategory = this.getEatDrinkSeeType(gMapsLocation);
     var location: SelectedLocation = {
       name: gMapsLocation.name,
@@ -147,13 +142,14 @@ export class SelectLocationModalPage implements OnInit {
     return location;
   }
 
-  isInList(googleMapsLocationId: string){
-    // console.log(googleMapsLocationId);
+  isInList(location: SelectedLocation){ 
+    var check = false;
     this.selectedLocationsService.selectedLocations.forEach(loc => {
-      if (loc.googleMapsLocationId == googleMapsLocationId){
-        return true;
+      if (loc.name == location.name){
+        check = true;
       }
-    });
+    })
+    return check;
   }
 
   getEatDrinkSeeType(gMapsLocation){

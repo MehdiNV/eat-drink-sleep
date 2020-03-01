@@ -1,4 +1,4 @@
 <ion-item>
-    <ion-label>Walking Distance Component</ion-label>
-    <ion-range></ion-range>
+    <ion-label position="stacked">Walking Distance: {{ walkingDistanceService.walkingPositionRange }}</ion-label>
+    <ion-range  min="50" max="1500" [(ngModel)]="walkingDistanceService.walkingPositionRange"></ion-range>
 </ion-item>

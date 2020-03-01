@@ -3,7 +3,7 @@
     <ion-row>
       <ion-col size="2">
         <ion-thumbnail >
-          <img *ngIf="location.image != null" src="{{location.img}}">
+          <img *ngIf="location.image != null" src="{{location.image}}">
           <img *ngIf="location.image == null" src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-thumbnail>
   
@@ -11,13 +11,16 @@
       <ion-col size="1">
 
       </ion-col>
-      <ion-col size="9">
+      <ion-col size="8">
         <ion-label style="font-size: small">
           {{location.name}} - {{location.tag}}
         </ion-label>
         <ion-label style="font-size: small; color: grey">
           {{location.priceRange}}
         </ion-label>
+      </ion-col>
+      <ion-col size="1">
+        <ion-icon (click)="removeLocation(location);"  name="close"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
