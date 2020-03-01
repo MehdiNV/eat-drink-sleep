@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <app-walking-distance></app-walking-distance>
+    <ion-icon (click)="resetLocations()" slot="end" name="refresh"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -15,9 +16,9 @@
   </ion-card>
  
   <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-button (click)="printLocations();" routerLink="/tabs/tab3">submit</ion-button>
+    <ion-row >
+      <ion-col style=" text-align:center;">
+        <ion-button *ngIf="selectedLocationsService.selectedLocations.length > 0" routerLink="/tabs/tab3">Build Your Route!</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

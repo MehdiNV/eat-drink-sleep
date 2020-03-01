@@ -12,13 +12,13 @@ import { SelectedLocation } from 'src/app/models/selectedLocationModel';
 export class SelectLocationModalPage implements OnInit {
 
   category: string;
-  currentPos;
   final_results: SelectedLocation[] = [];
 
   constructor(public modalController: ModalController,
     public selectedLocationsService: SelectedLocationsService) { }
   
   ngOnInit() {
+    this.final_results = [];
     // console.log(this.category);
     var selectedLocationOne: SelectedLocation = {
       name: 'Edinburgh Castle',

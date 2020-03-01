@@ -12,7 +12,7 @@ export class Tab2Page {
   constructor(public selectedLocationsService: SelectedLocationsService) {
 
   }
-  printLocations(){
-    // console.log(this.selectedLocationsService.selectedLocations);
+  resetLocations(){
+    this.selectedLocationsService.selectedLocations = [];
   }
 }

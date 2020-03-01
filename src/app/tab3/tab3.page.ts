@@ -11,20 +11,20 @@ export class Tab3Page implements AfterViewInit {
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
-  lat = 40.730610;
-  lng = -73.935242;
+  // lat = 55.954115;
+  // lng = -3.188332;
 
-  coordinates = new google.maps.LatLng(this.lat, this.lng);
+  // coordinates = new google.maps.LatLng(this.lat, this.lng);
 
-  mapOptions: google.maps.MapOptions = {
-    center: this.coordinates,
-    zoom: 8,
-  };
+  // mapOptions: google.maps.MapOptions = {
+  //   center: this.coordinates,
+  //   zoom: 8,
+  // };
 
-  marker = new google.maps.Marker({
-    position: this.coordinates,
-    map: this.map,
-  });
+  // marker = new google.maps.Marker({
+  //   position: this.coordinates,
+  //   map: this.map,
+  // });
 
   ngAfterViewInit(): void {
     this.mapInitializer();
@@ -32,7 +32,7 @@ export class Tab3Page implements AfterViewInit {
 
   mapInitializer() {
     var map =  new google.maps.Map(document.getElementById('map'), {
-      center: {lat: this.lat, lng: this.lng},
+      center: {lat: 0, lng: 0},
       zoom: 6
     });
 
