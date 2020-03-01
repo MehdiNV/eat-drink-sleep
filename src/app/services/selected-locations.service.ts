@@ -27,16 +27,7 @@ export class SelectedLocationsService {
       lat: 55.944534,
       long: -3.189477
     }
-    // var selectedLocationThree: SelectedLocation = {
-    //   name: 'Location Three Name',
-    //   priceRange: '£ - £',
-    //   distanceFromUser: '500',
-    //   image: null,
-    //   eatDrinkSeeCategory: 'drink',
-    //   tag: 'bar',
-    //   lat: 55.9486,
-    //   long: 3.1999
-    // }
+
     this.selectedLocations.push(selectedLocationOne);
     this.selectedLocations.push(selectedLocationTwo);
     // this.selectedLocations.push(selectedLocationThree);
