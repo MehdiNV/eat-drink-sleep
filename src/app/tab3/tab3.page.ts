@@ -9,7 +9,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from
 export class Tab3Page implements AfterViewInit {
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
-  map: google.maps.Map;;
+  map: google.maps.Map;
   lat = 40.730610;
   lng = -73.935242;
 
