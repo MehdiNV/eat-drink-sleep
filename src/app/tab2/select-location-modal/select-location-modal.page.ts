@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController  } from '@ionic/angular';
-
+import { SelectedLocationsService } from '../../services/selected-locations.service';
 @Component({
   selector: 'app-select-location-modal',
   templateUrl: './select-location-modal.page.html',
@@ -10,7 +10,8 @@ export class SelectLocationModalPage implements OnInit {
 
   category: string;
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController,
+    public selectedLocationsService: SelectedLocationsService) { }
   
   ngOnInit() {
     

@@ -9,5 +9,36 @@
 </ion-header>
 
 <ion-content>
+  <ion-card *ngFor="let location of selectedLocationsService.selectedLocations">
+    <ion-grid>
+      <ion-row>
+        <ion-col size=2>
+          {{location.image}} IMAGE
+        </ion-col>
+        
+        <ion-col>
+          <ion-row>
+            <ion-col size=6>
+              {{location.name}}
+            </ion-col>
+            <ion-col size=6>
+              {{location.tag}}
+            </ion-col>    
+          </ion-row>
+            <ion-col>
+              {{location.priceRange}}
+            </ion-col>
+          <ion-row>
+            <ion-col size=6>
+              {{location.distanceFromUser}}m
+            </ion-col>
+            <ion-col size=6>
+              Rating
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>>
+    </ion-grid>
+  </ion-card>
 
 </ion-content>
