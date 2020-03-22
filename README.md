@@ -15,3 +15,5 @@ We recommend cloning the repository to your own machine. The recommended minimum
 2 - Ionic framework
 3 - Android phone (also compatible with iOS)
 4 - Google Maps API
+
+Our application will not work without a Google Maps API Key. We have removed our own in order to prevent malicious access, hence you must provide your own (you can acquire one through Google's Developer Console). Once you have an API Key, please place it in the script tag (Line 21) in the src/index.html file as the value for the src attribute. This will allow the application to use your own Google Maps API and function as intended.
